@@ -1,6 +1,5 @@
 package xo.model;
 
-import xo.model.exceptions.AlreadyOccupiedException;
 import xo.model.exceptions.InvalidPointException;
 
 import java.awt.*;
@@ -23,14 +22,11 @@ public class Field {
         return field[point.x][point.y];
     }
 
-    public void setFigure(final Point point, final Figure figure) throws InvalidPointException,
-                                                                        AlreadyOccupiedException {
+    public void setFigure(final Point point, final Figure figure) throws InvalidPointException {
         if (!checkPoint(point)) {
             throw new InvalidPointException();
         }
-        if (field[point.x][point.y] != null) {
-            throw new AlreadyOccupiedException();
-        }
+
         field[point.x][point.y] = figure;
     }
 
