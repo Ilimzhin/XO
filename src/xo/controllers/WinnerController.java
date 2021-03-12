@@ -20,24 +20,26 @@ public class WinnerController {
                 return field.getFigure(new Point(0,0));
             if (check(field, new Point(0, 2), p -> new Point(p.x + 1, p.y - 1)))
                 return field.getFigure(new Point(0,2));
-        } catch (InvalidPointException e) {
+        } catch (final InvalidPointException e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    private boolean check(final Field field, final Point currentPoint, final IPointGenerator pointGenerator) {
+    boolean check(final Field field, final Point currentPoint, final IPointGenerator pointGenerator) {
         final Figure currentFigure;
         final Figure nextFigure;
         final Point nextPoint = pointGenerator.next(currentPoint);
         try {
             currentFigure = field.getFigure(currentPoint);
+
+            if (currentFigure == null) return false;
+
             nextFigure = field.getFigure(currentPoint);
         } catch (final InvalidPointException e) {
             return true;
         }
 
-        if (currentFigure == null) return false;
 
         if (currentFigure != nextFigure) return false;
         return check(field, nextPoint, pointGenerator);
